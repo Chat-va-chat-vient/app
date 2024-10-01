@@ -2,12 +2,15 @@ package student.isen.chatva_chatvient.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -28,6 +31,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -35,6 +39,8 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import student.isen.chatva_chatvient.ui.composables.PassSmashButtons
+import student.isen.chatva_chatvient.ui.theme.PurpleGrey40
+import student.isen.chatva_chatvient.ui.theme.PurpleGrey80
 
 @Composable
 fun HomeScreen(navController: NavController) {
@@ -58,7 +64,6 @@ fun HomeScreen(navController: NavController) {
 
 @Composable
 fun FloatingBottomNavBar(navController: NavController) {
-    // Get the height of the navigation bar
     val insets = WindowInsets.navigationBars
     val bottomPadding = with(LocalDensity.current) { insets.getBottom(LocalDensity.current).toDp() }
 
@@ -68,10 +73,10 @@ fun FloatingBottomNavBar(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(bottom = bottomPadding + 16.dp, start = 16.dp, end = 16.dp) // Apply padding to float above system navigation
-            .height(70.dp)
-            .clip(RoundedCornerShape(32.dp)) // Rounded corners
-            .background(Color.Green)
+            .padding(bottom = bottomPadding + 16.dp, start = 16.dp, end = 16.dp)
+            .height(60.dp)
+            .clip(RoundedCornerShape(32.dp))
+            .background(PurpleGrey80)
     ) {
         BottomNavigation(
             backgroundColor = Color.Transparent,
@@ -81,26 +86,41 @@ fun FloatingBottomNavBar(navController: NavController) {
             bottomNavItems.forEach { item ->
                 BottomNavigationItem(
                     icon = {
-                        when (item) {
-                            "Profil" -> Icon(Icons.Filled.Person, contentDescription = null)
-                            "Home" -> Icon(Icons.Filled.Home, contentDescription = null)
-                            "Messages" -> Icon(Icons.Filled.MailOutline, contentDescription = null)
-                            else -> Icon(Icons.Filled.Home, contentDescription = null)
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally, // Centre l'icône et le texte
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Icon(
+                                imageVector = when (item) {
+                                    "Profile" -> Icons.Filled.Person
+                                    "Home" -> Icons.Filled.Home
+                                    "Messages" -> Icons.Filled.MailOutline
+                                    else -> Icons.Filled.Home
+                                },
+                                contentDescription = null,
+                                modifier = Modifier.size(24.dp)
+                            )
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text(item)
                         }
                     },
-                    label = { Text(item) },
                     selected = selectedItem.value == item,
                     onClick = {
                         selectedItem.value = item
                         navController.navigate(item.lowercase())
                     },
                     selectedContentColor = Color.Blue,
-                    unselectedContentColor = Color.Gray
+                    unselectedContentColor = Color.Gray,
+                    alwaysShowLabel = true,
+                    modifier = Modifier.weight(1f)
                 )
             }
         }
     }
 }
+
+
+
 
 
 @OptIn(ExperimentalMaterial3Api::class)
