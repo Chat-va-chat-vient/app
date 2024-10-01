@@ -99,7 +99,7 @@ fun CandidateProfile(
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = "Ronronne à " + km + " km",
+                    text = "Purrs at " + km + " km",
                     color = Color.White,
                     textAlign = TextAlign.Start,
                     fontSize = 20.sp,
