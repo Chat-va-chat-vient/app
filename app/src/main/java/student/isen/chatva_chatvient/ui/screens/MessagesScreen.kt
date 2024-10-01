@@ -18,9 +18,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import student.isen.chatva_chatvient.ui.composables.CustomAppBar
 import student.isen.chatva_chatvient.ui.composables.FloatingBottomNavBar
+import student.isen.chatva_chatvient.ui.composables.PassSmashButtons
 
 @Composable
-fun ProfileScreen(navController: NavController) {
+fun MessagesProfile(navController: NavController) {
     Scaffold(
         topBar = { CustomAppBar() },
         bottomBar = { FloatingBottomNavBar(navController) },
@@ -35,7 +36,7 @@ fun ProfileScreen(navController: NavController) {
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    Text(text = "Bienvenue sur votre profil", style = MaterialTheme.typography.titleSmall)
+                    Text(text = "Bienvenue sur vos Messages", style = MaterialTheme.typography.titleSmall)
 
                     Spacer(modifier = Modifier.height(20.dp))
 

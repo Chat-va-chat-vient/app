@@ -1,23 +1,13 @@
 package student.isen.chatva_chatvient.ui.composables
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBars
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.MailOutline
-import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,9 +17,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import student.isen.chatva_chatvient.R
 import student.isen.chatva_chatvient.ui.theme.PurpleGrey80
 
 @Composable
@@ -62,10 +55,10 @@ fun FloatingBottomNavBar(navController: NavController) {
                         ) {
                             Icon(
                                 imageVector = when (item) {
-                                    "Profile" -> Icons.Filled.Person
-                                    "Home" -> Icons.Filled.Home
+                                    "Profile" -> Icons.Outlined.Person
+                                    "Home" -> ImageVector.vectorResource(R.drawable.home)
                                     "Messages" -> Icons.Filled.MailOutline
-                                    else -> Icons.Filled.Home
+                                    else -> Icons.Outlined.Person // Valeur par défaut
                                 },
                                 contentDescription = null,
                                 modifier = Modifier.size(24.dp)
@@ -77,7 +70,11 @@ fun FloatingBottomNavBar(navController: NavController) {
                     selected = selectedItem.value == item,
                     onClick = {
                         selectedItem.value = item
-                        navController.navigate(item.lowercase())
+                        when (item) {
+                            "Profile" -> navController.navigate("profile") // Remplace "profile" par le nom de la route de ta page Profile
+                            "Home" -> navController.navigate("home") // Remplace "home" par le nom de la route de ta page Home
+                            "Messages" -> navController.navigate("messages") // Remplace "messages" par le nom de la route de ta page Messages
+                        }
                     },
                     selectedContentColor = Color.Blue,
                     unselectedContentColor = Color.Gray,
