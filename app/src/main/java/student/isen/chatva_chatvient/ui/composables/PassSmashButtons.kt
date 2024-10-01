@@ -15,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -30,15 +29,14 @@ fun SmashButton(onClick: () -> Unit, function: () -> Unit) {
     IconButton(
         onClick = onClick,
         modifier = Modifier
-            .size(56.dp) // Make the button circular
-            .clip(CircleShape) // Apply the circle shape
-            .background(SmashButtonColor) // Optional: Set background color
+            .size(56.dp)
+            .clip(CircleShape)
+            .background(SmashButtonColor)
     ) {
-        // Replace with the VectorDrawable from your drawable resource
         Image(
-            painter = painterResource(id = R.drawable.heart), // Replace with your drawable resource ID
+            painter = painterResource(id = R.drawable.heart),
             contentDescription = "Heart",
-            modifier = Modifier.size(40.dp) // Adjust the size of the image
+            modifier = Modifier.size(40.dp)
 
         )
     }
@@ -49,15 +47,14 @@ fun PassButton(onClick: () -> Unit, function: () -> Unit) {
     IconButton(
         onClick = onClick,
         modifier = Modifier
-            .size(56.dp) // Make the button circular
-            .clip(CircleShape) // Apply the circle shape
-            .background(PassButtonColor) // Optional: Set background color
+            .size(56.dp)
+            .clip(CircleShape)
+            .background(PassButtonColor)
     ) {
-        // Replace with the VectorDrawable from your drawable resource
         Image(
-            painter = painterResource(id = R.drawable.griffre), // Replace with your drawable resource ID
+            painter = painterResource(id = R.drawable.griffre),
             contentDescription = "claw",
-            modifier = Modifier.size(40.dp) // Adjust the size of the image
+            modifier = Modifier.size(40.dp)
         )
     }
 }
@@ -76,7 +73,7 @@ fun PassSmashButtons(navController: NavController) {
             PassButton(
                 onClick = { navController.navigate("details") }) {}
 
-            Spacer(modifier = Modifier.width(10.dp)) // Spacer to add 10.dp space between buttons
+            Spacer(modifier = Modifier.width(10.dp))
 
             SmashButton(
                 onClick = { navController.navigate("details") }) {}
@@ -87,6 +84,6 @@ fun PassSmashButtons(navController: NavController) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewPassSmashButtons() {
-    val navController = rememberNavController() // Simulating the NavController
+    val navController = rememberNavController()
     PassSmashButtons(navController)
 }

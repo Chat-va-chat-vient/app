@@ -1,5 +1,6 @@
 package student.isen.chatva_chatvient.ui.screens
 
+import AspectRatioImageFromUrl
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -39,7 +40,6 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import student.isen.chatva_chatvient.ui.composables.PassSmashButtons
-import student.isen.chatva_chatvient.ui.theme.PurpleGrey40
 import student.isen.chatva_chatvient.ui.theme.PurpleGrey80
 
 @Composable
@@ -51,9 +51,12 @@ fun HomeScreen(navController: NavController) {
             Surface(
                 modifier = Modifier.padding(padding),
             ) {
-                Text(
-                    modifier = Modifier.padding(8.dp),
-                    text = "Lorem ipsum dolor sit amet...")
+
+                AspectRatioImageFromUrl(
+                    imageUrl = "https://placehold.co/300x533.jpg" // Remplace par ton URL d'image
+                )
+
+
                 PassSmashButtons(navController)
             }
 
@@ -87,7 +90,7 @@ fun FloatingBottomNavBar(navController: NavController) {
                 BottomNavigationItem(
                     icon = {
                         Column(
-                            horizontalAlignment = Alignment.CenterHorizontally, // Centre l'icône et le texte
+                            horizontalAlignment = Alignment.CenterHorizontally,
                             modifier = Modifier.fillMaxWidth()
                         ) {
                             Icon(
