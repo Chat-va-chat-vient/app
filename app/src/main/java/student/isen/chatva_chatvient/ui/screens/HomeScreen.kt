@@ -1,11 +1,12 @@
-package student.isen.chatva_chatvient.pages
+package student.isen.chatva_chatvient.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -33,6 +34,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -61,17 +63,20 @@ fun HomeScreen(navController: NavController) {
 
 @Composable
 fun FloatingBottomNavBar(navController: NavController) {
-    val bottomNavItems = listOf("Profil", "Home", "Messages")
+    // Get the height of the navigation bar
+    val insets = WindowInsets.navigationBars
+    val bottomPadding = with(LocalDensity.current) { insets.getBottom(LocalDensity.current).toDp() }
+
+    val bottomNavItems = listOf("Profile", "Home", "Messages")
     val selectedItem = remember { mutableStateOf("Home") }
 
     Box(
         modifier = Modifier
             .fillMaxWidth()
+            .padding(bottom = bottomPadding + 16.dp, start = 16.dp, end = 16.dp) // Apply padding to float above system navigation
             .height(70.dp)
-            .padding(16.dp)
-            .offset(y = (-24).dp) // Offset to float above the bottom of the screen
-            .clip(RoundedCornerShape(20.dp)) // Rounded corners
-            .background(Color.Red) // Background color
+            .clip(RoundedCornerShape(32.dp)) // Rounded corners
+            .background(Color.Green)
     ) {
         BottomNavigation(
             backgroundColor = Color.Transparent,

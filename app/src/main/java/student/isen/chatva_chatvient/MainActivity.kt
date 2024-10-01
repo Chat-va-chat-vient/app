@@ -7,8 +7,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import student.isen.chatva_chatvient.pages.DetailPage
-import student.isen.chatva_chatvient.pages.HomeScreen
+import student.isen.chatva_chatvient.ui.screens.DetailPage
+import student.isen.chatva_chatvient.ui.screens.HomeScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
