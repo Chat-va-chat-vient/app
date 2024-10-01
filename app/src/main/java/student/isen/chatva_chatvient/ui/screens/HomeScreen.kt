@@ -8,13 +8,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.material.icons.filled.Person
@@ -35,9 +32,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import student.isen.chatva_chatvient.ui.composables.PassSmashButtons
 
 @Composable
 fun HomeScreen(navController: NavController) {
@@ -51,9 +48,7 @@ fun HomeScreen(navController: NavController) {
                 Text(
                     modifier = Modifier.padding(8.dp),
                     text = "Lorem ipsum dolor sit amet...")
-                LikeButton(
-                    onClick = {navController.navigate("details")}
-                ){}
+                PassSmashButtons(navController)
             }
 
         }
@@ -123,28 +118,4 @@ fun AddAppBar() {
             }
         }
     )
-}
-
-
-@Composable
-fun LikeButton(onClick: () -> Unit, function: () -> Unit) {
-    IconButton(
-        onClick = onClick,
-        modifier = Modifier
-            .size(56.dp) // Make the button circular
-            .clip(CircleShape) // Apply the circle shape
-            .background(Color.Red) // Optional: Set background color
-    ) {
-        Icon(
-            imageVector = Icons.Default.Favorite, // Use a built-in heart icon
-            contentDescription = "Heart",
-            tint = Color.White // Set icon color
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-
 }
