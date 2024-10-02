@@ -43,26 +43,25 @@ fun PersonalProfileScreen(navController: NavController) {
                     // Image de profil avec option de modification
                     Box(
                         modifier = Modifier
-                            .size(200.dp)
-                            .clip(RoundedCornerShape(16.dp))
-                            .background(Color.LightGray)
+                            .size(125.dp)
+                            .aspectRatio(9f/16f)
                             .clickable { /* Ajouter logique pour changer la photo de profil */ },
                         contentAlignment = Alignment.Center
                     ) {
                         Image(
                             painter = painterResource(id = R.drawable.ic_launcher_background),
-                            contentDescription = "Photo de profil",
+                            contentDescription = "Profile Photo",
                             contentScale = ContentScale.Crop,
                             modifier = Modifier.fillMaxSize()
                         )
                         Text(
-                            text = "Modifier",
+                            text = "Change",
                             color = Color.White,
                             style = MaterialTheme.typography.bodyMedium
                         )
                     }
 
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(50.dp))
 
                     // Modifier le nom d'utilisateur
                     OutlinedTextField(
