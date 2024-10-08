@@ -17,10 +17,12 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -150,9 +152,13 @@ fun BottomBar(
 ) {
     Surface(
         modifier = Modifier.fillMaxWidth(),
-        color = Color.White,
+        color = MaterialTheme.colorScheme.surface,
         tonalElevation = 8.dp,
-        shadowElevation = 4.dp
+        shadowElevation = 4.dp,
+
+        //rounded top corner
+        shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
+
     ) {
         Row(
             modifier = Modifier
@@ -195,14 +201,20 @@ fun BottomBar(
             Spacer(modifier = Modifier.width(8.dp))
 
             // Send Button
-            Button(
+
+            IconButton(
                 onClick = onSendClick,
                 modifier = Modifier
                     .size(48.dp)
-                    .background(MaterialTheme.colorScheme.primary, shape = MaterialTheme.shapes.medium)
-            ) {
-                Text("Send", color = Color.White)
-            }
+                    .background(MaterialTheme.colorScheme.primary , shape = CircleShape)
+            ) { //Add send icon
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.Send,
+                    contentDescription = "Send",
+                    tint = Color.White
+                )
+                              }
+
         }
     }
 }
