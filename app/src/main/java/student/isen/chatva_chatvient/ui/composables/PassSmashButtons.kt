@@ -25,7 +25,7 @@ import student.isen.chatva_chatvient.ui.theme.PassButtonColor
 import student.isen.chatva_chatvient.ui.theme.SmashButtonColor
 
 @Composable
-fun SmashButton(onClick: () -> Unit, function: () -> Unit) {
+fun SmashButton(onClick: () -> Unit) {
     IconButton(
         onClick = onClick,
         modifier = Modifier
@@ -43,7 +43,7 @@ fun SmashButton(onClick: () -> Unit, function: () -> Unit) {
 }
 
 @Composable
-fun PassButton(onClick: () -> Unit, function: () -> Unit) {
+fun PassButton(onClick: () -> Unit) {
     IconButton(
         onClick = onClick,
         modifier = Modifier
@@ -71,12 +71,12 @@ fun PassSmashButtons(navController: NavController) {
             verticalAlignment = Alignment.CenterVertically,
         ) {
             PassButton(
-                onClick = { navController.navigate("details") }) {}
+                onClick = { navController.navigate("details") })
 
             Spacer(modifier = Modifier.width(10.dp))
 
             SmashButton(
-                onClick = { navController.navigate("details") }) {}
+                onClick = { navController.navigate("details") })
         }
     }
 }
