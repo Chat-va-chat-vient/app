@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
             NavHost(navController, startDestination = "home"){
                 composable("home") { HomeScreen(navController) }
                 composable("profile") { PersonalProfileScreen(navController) }
-                composable("messages"){ MessagesProfile(navController) }
+                composable("messages"){ MessagesProfile() }
             }
         }
     }

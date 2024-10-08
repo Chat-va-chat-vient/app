@@ -59,7 +59,7 @@ import student.isen.chatva_chatvient.data.model.Message
 
 
 @Composable
-fun MessagesProfile( navController: NavController) {
+fun MessagesProfile() {
     Scaffold(
         topBar = { CustomTopAppBar() },
         content = { padding ->
