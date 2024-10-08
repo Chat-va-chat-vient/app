@@ -92,7 +92,7 @@ fun CustomTopAppBar() {
                         .border(2.dp, Color.Gray, CircleShape)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
-                Text("PussySlayerXXX_69")
+                Text("Tomy")
             }
         },
         navigationIcon = {
