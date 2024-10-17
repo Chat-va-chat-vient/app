@@ -1,6 +1,5 @@
 package student.isen.chatva_chatvient.ui.screens
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -24,7 +23,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -44,7 +42,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
@@ -53,20 +50,22 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import coil.request.ImageRequest
+import student.isen.chatva_chatvient.data.model.Cat
 import student.isen.chatva_chatvient.data.model.Message
 
 
 
 @Composable
-fun MessagesProfile() {
+fun MessagingScreen(catId: String, navController: NavController) {
+
+    val cat = Cat("name",10,"image", null)
     Scaffold(
-        topBar = { CustomTopAppBar() },
+        topBar = { CustomTopAppBar(cat, navController) },
         content = { padding ->
             Surface(
                 modifier = Modifier.padding(padding),
             ) {
-                MessagingPage()
+                MessagingPage(cat)
             }
         }
     )
@@ -74,17 +73,14 @@ fun MessagesProfile() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CustomTopAppBar() {
+fun CustomTopAppBar(cat: Cat, navController: NavController) {
     TopAppBar(
         title = {
             Row(modifier = Modifier,
                     verticalAlignment = Alignment.CenterVertically,) {
                 //Add the profile picture here
                 AsyncImage(
-                    model = ImageRequest.Builder(LocalContext.current)
-                        .data("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fbonjournature.fr%2Fwp-content%2Fuploads%2Fphoto-chat-europeen-1024x640.jpg&f=1&nofb=1&ipt=ec96c5376c85ef1fb02de15e9f6fb007e4001b11761f0b26eb6ed9552970864a&ipo=images")
-                        .crossfade(true) // Animation de transition
-                        .build(),
+                    model = cat.imageUrl,
                     contentDescription = null,
                     contentScale = ContentScale.Crop, // Ajuste l'image
                     modifier = Modifier.size(40.dp)
@@ -92,11 +88,11 @@ fun CustomTopAppBar() {
                         .border(2.dp, Color.Gray, CircleShape)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
-                Text("Tomy")
+                Text(cat.name)
             }
         },
         navigationIcon = {
-            IconButton(onClick = { /* do something */ }) {
+            IconButton(onClick = { navController.popBackStack() }) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Localized description"
@@ -115,7 +111,7 @@ fun CustomTopAppBar() {
 }
 
 @Composable
-fun MessagingPage() {
+fun MessagingPage(cat: Cat) {
     var messages by remember { mutableStateOf(listOf<Message>()) }
     var newMessage by remember { mutableStateOf(TextFieldValue()) }
 

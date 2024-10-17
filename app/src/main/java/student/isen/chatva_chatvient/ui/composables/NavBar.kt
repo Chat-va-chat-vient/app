@@ -73,7 +73,7 @@ fun FloatingBottomNavBar(navController: NavController) {
                         when (item) {
                             "Profile" -> navController.navigate("profile") // Remplace "profile" par le nom de la route de ta page Profile
                             "Home" -> navController.navigate("home") // Remplace "home" par le nom de la route de ta page Home
-                            "Messages" -> navController.navigate("messages") // Remplace "messages" par le nom de la route de ta page Messages
+                            "Messages" -> navController.navigate("messagelist") // Remplace "messages" par le nom de la route de ta page Messages
                         }
                     },
                     selectedContentColor = Color.Blue,
