@@ -30,13 +30,22 @@ import androidx.navigation.NavController
 import student.isen.chatva_chatvient.data.model.Cat
 import student.isen.chatva_chatvient.ui.composables.CustomAppBar
 import student.isen.chatva_chatvient.ui.composables.FloatingBottomNavBar
-import student.isen.chatva_chatvient.viewmodel.ConstactListViewModel
+import student.isen.chatva_chatvient.viewmodel.ContactListViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
+import student.isen.chatva_chatvient.data.repositories.CatRepository
+import student.isen.chatva_chatvient.viewmodel.factories.ContactListViewModelFactory
 
 
 @Composable
-fun ContactListScreen(navController: NavController, viewModel: ConstactListViewModel = viewModel()) {
+fun ContactListScreen(navController: NavController, catRepository: CatRepository) {
+
+    // Create the ViewModel using the factory
+    val viewModel: ContactListViewModel = viewModel(
+        factory = ContactListViewModelFactory(catRepository)
+    )
+
+
     // Observe contacts from the ViewModel
     val contacts by viewModel.contacts.collectAsState()
 
@@ -71,7 +80,7 @@ fun ContactItem(contact: Cat, navController: NavController) {
     ) {
         //Add the profile picture here
         AsyncImage(
-            model = contact.imageUrl,
+            model = contact.photo,
             contentDescription = null,
             contentScale = ContentScale.Crop, // Ajuste l'image
             modifier = Modifier.size(40.dp)
@@ -81,7 +90,7 @@ fun ContactItem(contact: Cat, navController: NavController) {
         Spacer(modifier = Modifier.width(16.dp))
         Column {
             BasicText(text = contact.name, style = MaterialTheme.typography.bodyLarge)
-            BasicText(text = contact.imageUrl, style = MaterialTheme.typography.bodySmall, overflow = TextOverflow.Ellipsis, maxLines = 1)
+            BasicText(text = contact.photo, style = MaterialTheme.typography.bodySmall, overflow = TextOverflow.Ellipsis, maxLines = 1)
         }
     }
 }

@@ -33,6 +33,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -48,27 +49,42 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import student.isen.chatva_chatvient.data.model.Cat
 import student.isen.chatva_chatvient.data.model.Message
-
+import student.isen.chatva_chatvient.data.repositories.CatRepository
+import student.isen.chatva_chatvient.viewmodel.MessagingViewModel
+import student.isen.chatva_chatvient.viewmodel.factories.MessagingViewModelFactory
 
 
 @Composable
-fun MessagingScreen(catId: String, navController: NavController) {
+fun MessagingScreen(catId: String, navController: NavController, catRepository: CatRepository) {
 
-    val cat = Cat("name",10,"image", null)
-    Scaffold(
-        topBar = { CustomTopAppBar(cat, navController) },
-        content = { padding ->
-            Surface(
-                modifier = Modifier.padding(padding),
-            ) {
-                MessagingPage(cat)
-            }
-        }
+    // Create the ViewModel using the factory
+    val viewModel: MessagingViewModel = viewModel(
+        factory = MessagingViewModelFactory(catRepository)
     )
+    val contact by viewModel.contactInfo.collectAsState()
+    val messages by viewModel.chatMessages.collectAsState()
+
+    // Display contact information
+    contact?.let { cat ->
+        Scaffold(
+            topBar = { CustomTopAppBar(cat, navController) },
+            content = { padding ->
+                Surface(
+                    modifier = Modifier.padding(padding),
+                ) {
+                    MessagingPage(cat)
+                }
+            }
+        )
+    }
+
+
+
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -80,7 +96,7 @@ fun CustomTopAppBar(cat: Cat, navController: NavController) {
                     verticalAlignment = Alignment.CenterVertically,) {
                 //Add the profile picture here
                 AsyncImage(
-                    model = cat.imageUrl,
+                    model = cat.photo,
                     contentDescription = null,
                     contentScale = ContentScale.Crop, // Ajuste l'image
                     modifier = Modifier.size(40.dp)
