@@ -22,9 +22,11 @@ class CatRepository(private val apiService: ApiService) {
     }
 
     suspend fun getNextProfiles(id: String): List<Cat> {
-
         return apiService.getNextProfiles(id)
     }
 
+    suspend fun updateCat(catId: String, cat: Cat) {
+        apiService.updateCat(catId, cat)
+    }
 
 }

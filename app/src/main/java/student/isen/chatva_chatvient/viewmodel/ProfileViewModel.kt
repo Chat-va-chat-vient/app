@@ -8,7 +8,6 @@ import student.isen.chatva_chatvient.data.repositories.CatRepository
 class ProfileViewModel(private val catRepository: CatRepository,
                        private val catId: String) : ViewModel() {
 
-
     var userName = mutableStateOf("")
         private set
 
@@ -21,6 +20,9 @@ class ProfileViewModel(private val catRepository: CatRepository,
     var userPhoto = mutableStateOf("")
         private set
 
+    private var userAge: Int? = null
+    private var userGender: String? = null
+
     init {
         loadCatProfile(catId)
     }
@@ -32,8 +34,12 @@ class ProfileViewModel(private val catRepository: CatRepository,
                 userName.value = cat.name
                 userDescription.value = cat.description
                 userCity.value = cat.city
-                val picture: String = cat.photo
-                userPhoto.value = picture
+                userPhoto.value = cat.photo
+
+                // Récupérer l'âge et le genre pour les conserver lors de la mise à jour
+                userAge = cat.age
+                userGender = cat.gender
+
             } catch (e: Exception) {
                 // Gestion d'erreur si l'API échoue
                 userName.value = "Erreur de chargement"
@@ -42,7 +48,7 @@ class ProfileViewModel(private val catRepository: CatRepository,
         }
     }
 
-    // Modifier les valeurs
+    // Modifier les valeurs affichées dans l'UI
     fun onUserNameChange(newName: String) {
         userName.value = newName
     }
@@ -61,8 +67,24 @@ class ProfileViewModel(private val catRepository: CatRepository,
 
     fun saveProfile() {
         viewModelScope.launch {
-            // Logique pour sauvegarder les changements
-            // Par exemple, faire appel à une API ou sauvegarder localement
+            try {
+                // Création d'un objet Cat avec les informations actuelles de l'utilisateur
+                val updatedCat = Cat(
+                    id = catId,
+                    name = userName.value,
+                    description = userDescription.value,
+                    city = userCity.value,
+                    age = userAge ?: 0,
+                    gender = userGender ?: "",
+                    photo = userPhoto.value
+                )
+
+                catRepository.updateCat(catId, updatedCat)
+
+                // Message de succès
+            } catch (e: Exception) {
+                // Gestion des erreurs ici (par exemple, afficher un message d'erreur)
+            }
         }
     }
 }
