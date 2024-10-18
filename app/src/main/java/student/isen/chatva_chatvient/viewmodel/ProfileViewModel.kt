@@ -65,7 +65,7 @@ class ProfileViewModel(private val catRepository: CatRepository,
         userPhoto.value = newPhoto
     }
 
-    fun saveProfile() {
+    fun saveProfile(onSuccess: () -> Unit) {
         viewModelScope.launch {
             try {
                 // Création d'un objet Cat avec les informations actuelles de l'utilisateur
@@ -82,6 +82,7 @@ class ProfileViewModel(private val catRepository: CatRepository,
                 catRepository.updateCat(catId, updatedCat)
 
                 // Message de succès
+                onSuccess()
             } catch (e: Exception) {
                 // Gestion des erreurs ici (par exemple, afficher un message d'erreur)
             }

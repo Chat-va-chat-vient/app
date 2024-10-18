@@ -4,11 +4,15 @@ import ProfileViewModel
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -28,18 +32,20 @@ fun ProfileScreen(
     catRepository: CatRepository,
     catId: String
 ) {
-
     // Create the ViewModel using the factory
     val viewModel: ProfileViewModel = viewModel(
         factory = ProfileViewModelFactory(catRepository, catId)
     )
 
+    // État pour le dialogue de confirmation
+    val showDialog = remember { mutableStateOf(false) }
 
     val userName by viewModel.userName
     val userDescription by viewModel.userDescription
     val userCity by viewModel.userCity
     val userPhoto by viewModel.userPhoto
 
+    // Ajout du Scaffold pour afficher le dialog
     Scaffold(
         topBar = { CustomAppBar() },
         bottomBar = { FloatingBottomNavBar(navController) },
@@ -54,12 +60,12 @@ fun ProfileScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Top
                 ) {
-                    // Image de profil avec option de modification
+                    // Image de profil
                     Box(
                         modifier = Modifier
-                            .size(125.dp)
-                            .aspectRatio(9f/16f)
-                            .clickable { /* Ajouter logique pour changer la photo de profil */ },
+                            .width(125.dp)
+                            .height((125 * 16 / 9).dp)
+                            .clip(RoundedCornerShape(8.dp)),
                         contentAlignment = Alignment.Center
                     ) {
                         val painter = rememberAsyncImagePainter(userPhoto)
@@ -83,7 +89,7 @@ fun ProfileScreen(
 
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    // Modifier la ville (Input de ville)
+                    // Modifier la ville
                     OutlinedTextField(
                         value = userCity,
                         onValueChange = { viewModel.onUserCityChange(it) },
@@ -118,11 +124,29 @@ fun ProfileScreen(
 
                     // Bouton pour enregistrer les modifications
                     Button(
-                        onClick = { viewModel.saveProfile() },
+                        onClick = {
+                            viewModel.saveProfile {showDialog.value=true}
+                        },
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Text(text = "Save")
                     }
+                }
+
+                // Affichage du dialogue de confirmation
+                if (showDialog.value) {
+                    AlertDialog(
+                        onDismissRequest = { showDialog.value = false },
+                        title = { Text("Success") },
+                        text = { Text("Your profile has been successfully saved.") },
+                        confirmButton = {
+                            TextButton(
+                                onClick = { showDialog.value = false }
+                            ) {
+                                Text("OK")
+                            }
+                        }
+                    )
                 }
             }
         }
