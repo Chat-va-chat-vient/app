@@ -60,7 +60,9 @@ fun PassButton(onClick: () -> Unit) {
 }
 
 @Composable
-fun PassSmashButtons(navController: NavController) {
+fun PassSmashButtons(
+                     onPassClick: () -> Unit,
+                     onSmashClick: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -71,12 +73,12 @@ fun PassSmashButtons(navController: NavController) {
             verticalAlignment = Alignment.CenterVertically,
         ) {
             PassButton(
-                onClick = { navController.navigate("details") })
+                onClick =  onPassClick )
 
             Spacer(modifier = Modifier.width(10.dp))
 
             SmashButton(
-                onClick = { navController.navigate("details") })
+                onClick = onSmashClick)
         }
     }
 }
@@ -85,5 +87,5 @@ fun PassSmashButtons(navController: NavController) {
 @Composable
 fun PreviewPassSmashButtons() {
     val navController = rememberNavController()
-    PassSmashButtons(navController)
+    PassSmashButtons({}, {})
 }

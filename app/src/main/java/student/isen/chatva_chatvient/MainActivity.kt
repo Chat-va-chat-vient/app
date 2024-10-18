@@ -16,6 +16,7 @@ import student.isen.chatva_chatvient.ui.screens.PersonalProfileScreen
 
 class MainActivity : ComponentActivity() {
     private lateinit var catRepository: CatRepository
+    private var userId = "0881fc7c-3f06-4e1f-bf8c-21597eff596e"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +28,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
             NavHost(navController, startDestination = "home"){
-                composable("home") { HomeScreen(navController) }
+                composable("home") { HomeScreen(navController, catRepository, userId) }
                 composable("profile") { PersonalProfileScreen(navController) }
                 composable("messagelist"){ ContactListScreen(navController, catRepository) }
                 composable("message/{catId}") { backStackEntry ->

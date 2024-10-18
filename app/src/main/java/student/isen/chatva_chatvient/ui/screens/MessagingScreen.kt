@@ -64,10 +64,10 @@ fun MessagingScreen(catId: String, navController: NavController, catRepository: 
 
     // Create the ViewModel using the factory
     val viewModel: MessagingViewModel = viewModel(
-        factory = MessagingViewModelFactory(catRepository)
+        factory = MessagingViewModelFactory(catRepository, catId)
     )
+
     val contact by viewModel.contactInfo.collectAsState()
-    val messages by viewModel.chatMessages.collectAsState()
 
     // Display contact information
     contact?.let { cat ->

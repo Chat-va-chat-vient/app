@@ -25,11 +25,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import student.isen.chatva_chatvient.R
+import student.isen.chatva_chatvient.data.model.Cat
 
 @Composable
 fun CandidateProfile(
-    imageUrl: String, // URL de l'image
-    km: String, // Localisation à afficher
+    cat: Cat,
     modifier: Modifier = Modifier,
     width: Dp = 335.dp, // Largeur par défaut
 ) {
@@ -51,7 +51,7 @@ fun CandidateProfile(
         ) {
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
-                    .data(imageUrl)
+                    .data(cat.photo)
                     .crossfade(true) // Animation de transition
                     .build(),
                 contentDescription = null,
@@ -71,7 +71,7 @@ fun CandidateProfile(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Milo",
+                    text = cat.name,
                     color = Color.White,
                     textAlign = TextAlign.Start,
                     fontFamily = FontFamily(Font(R.font.inter)),
@@ -80,7 +80,7 @@ fun CandidateProfile(
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = "5",
+                    text = cat.age.toString(),
                     color = Color.White,
                     textAlign = TextAlign.Start,
                     fontFamily = FontFamily(Font(R.font.inter)),
@@ -99,7 +99,7 @@ fun CandidateProfile(
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = "Purrs at " + km + " km",
+                    text = "Purrs at " + cat.city,
                     color = Color.White,
                     textAlign = TextAlign.Start,
                     fontSize = 20.sp,
