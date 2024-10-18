@@ -12,7 +12,7 @@ import student.isen.chatva_chatvient.data.repositories.CatRepository
 import student.isen.chatva_chatvient.ui.screens.HomeScreen
 import student.isen.chatva_chatvient.ui.screens.ContactListScreen
 import student.isen.chatva_chatvient.ui.screens.MessagingScreen
-import student.isen.chatva_chatvient.ui.screens.PersonalProfileScreen
+import student.isen.chatva_chatvient.ui.screens.ProfileScreen
 
 class MainActivity : ComponentActivity() {
     private lateinit var catRepository: CatRepository
@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
             NavHost(navController, startDestination = "home"){
                 composable("home") { HomeScreen(navController, catRepository, userId) }
-                composable("profile") { PersonalProfileScreen(navController) }
+                composable("profile") { ProfileScreen(navController, catRepository, userId) }
                 composable("messagelist"){ ContactListScreen(navController, catRepository) }
                 composable("message/{catId}") { backStackEntry ->
                     val catId = backStackEntry.arguments?.getString("catId") ?: ""

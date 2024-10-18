@@ -6,5 +6,6 @@ data class Cat(
     val age: Int,
     val gender: String,
     val photo: String,
-    val city: String
+    val city: String,
+    val description: String
 )

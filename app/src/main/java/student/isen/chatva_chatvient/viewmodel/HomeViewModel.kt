@@ -13,7 +13,7 @@ class HomeViewModel(
     private val catId: String
 ) : ViewModel() {
 
-    private val _currentCat = MutableStateFlow(Cat("","",0,"","",""))
+    private val _currentCat = MutableStateFlow(Cat("","",0,"","","",""))
     val currentCat = _currentCat
 
     private var candidateList: List<Cat> = emptyList()
