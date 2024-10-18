@@ -39,7 +39,6 @@ fun FloatingBottomNavBar(navController: NavController) {
             .padding(bottom = bottomPadding + 16.dp, start = 16.dp, end = 16.dp)
             .height(60.dp)
             .clip(RoundedCornerShape(32.dp))
-//            .background(PurpleGrey80)
     ) {
         BottomNavigation(
             backgroundColor = Color.Transparent,

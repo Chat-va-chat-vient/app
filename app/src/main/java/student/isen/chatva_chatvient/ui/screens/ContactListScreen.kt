@@ -40,13 +40,10 @@ import student.isen.chatva_chatvient.viewmodel.factories.ContactListViewModelFac
 @Composable
 fun ContactListScreen(navController: NavController, catRepository: CatRepository) {
 
-    // Create the ViewModel using the factory
     val viewModel: ContactListViewModel = viewModel(
         factory = ContactListViewModelFactory(catRepository)
     )
 
-
-    // Observe contacts from the ViewModel
     val contacts by viewModel.contacts.collectAsState()
 
     Scaffold(
@@ -78,13 +75,12 @@ fun ContactItem(contact: Cat, navController: NavController) {
             ),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        //Add the profile picture here
         AsyncImage(
             model = contact.photo,
             contentDescription = null,
-            contentScale = ContentScale.Crop, // Ajuste l'image
+            contentScale = ContentScale.Crop,
             modifier = Modifier.size(40.dp)
-                .clip(CircleShape)                       // clip to the circle shape
+                .clip(CircleShape)
                 .border(2.dp, Color.Gray, CircleShape)
         )
         Spacer(modifier = Modifier.width(16.dp))

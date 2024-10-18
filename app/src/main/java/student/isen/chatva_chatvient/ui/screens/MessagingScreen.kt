@@ -62,14 +62,12 @@ import student.isen.chatva_chatvient.viewmodel.factories.MessagingViewModelFacto
 @Composable
 fun MessagingScreen(catId: String, navController: NavController, catRepository: CatRepository) {
 
-    // Create the ViewModel using the factory
     val viewModel: MessagingViewModel = viewModel(
         factory = MessagingViewModelFactory(catRepository, catId)
     )
 
     val contact by viewModel.contactInfo.collectAsState()
 
-    // Display contact information
     contact?.let { cat ->
         Scaffold(
             topBar = { CustomTopAppBar(cat, navController) },
@@ -94,13 +92,12 @@ fun CustomTopAppBar(cat: Cat, navController: NavController) {
         title = {
             Row(modifier = Modifier,
                     verticalAlignment = Alignment.CenterVertically,) {
-                //Add the profile picture here
                 AsyncImage(
                     model = cat.photo,
                     contentDescription = null,
-                    contentScale = ContentScale.Crop, // Ajuste l'image
+                    contentScale = ContentScale.Crop,
                     modifier = Modifier.size(40.dp)
-                        .clip(CircleShape)                       // clip to the circle shape
+                        .clip(CircleShape)
                         .border(2.dp, Color.Gray, CircleShape)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
@@ -116,7 +113,7 @@ fun CustomTopAppBar(cat: Cat, navController: NavController) {
             }
         },
         actions = {
-            IconButton(onClick = { /* do something */ }) {
+            IconButton(onClick = {}) {
                 Icon(
                     imageVector = Icons.Filled.Menu,
                     contentDescription = "Localized description"
@@ -142,14 +139,13 @@ fun MessagingPage(cat: Cat) {
             }
         }
 
-        // Bottom Bar with rounded text field
         BottomBar(
             textValue = newMessage,
             onTextChange = { newMessage = it },
             onSendClick = {
                 if (newMessage.text.isNotBlank()) {
                     messages = messages + Message("You", newMessage.text)
-                    newMessage = TextFieldValue("") // Clear input field
+                    newMessage = TextFieldValue("")
                 }
             }
         )
@@ -168,7 +164,6 @@ fun BottomBar(
         tonalElevation = 8.dp,
         shadowElevation = 4.dp,
 
-        //rounded top corner
         shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
 
     ) {
@@ -178,7 +173,6 @@ fun BottomBar(
                 .padding(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Rounded TextField
             BasicTextField(
                 value = textValue,
                 onValueChange = onTextChange,
@@ -206,26 +200,24 @@ fun BottomBar(
                             )
                         )
                     }
-                    innerTextField()  // Render the input field
+                    innerTextField()
                 }
             )
 
             Spacer(modifier = Modifier.width(8.dp))
-
-            // Send Button
 
             IconButton(
                 onClick = onSendClick,
                 modifier = Modifier
                     .size(48.dp)
                     .background(MaterialTheme.colorScheme.primary , shape = CircleShape)
-            ) { //Add send icon
+            ) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.Send,
                     contentDescription = "Send",
                     tint = Color.White
                 )
-                              }
+            }
 
         }
     }
@@ -236,7 +228,6 @@ fun BottomBar(
 fun MessageItem(message: Message) {
     val isUserMessage = message.sender == "You"
 
-    // Bubble style
     val bubbleColor = if (isUserMessage) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary
     val alignment = if (isUserMessage) Alignment.CenterEnd else Alignment.CenterStart
 

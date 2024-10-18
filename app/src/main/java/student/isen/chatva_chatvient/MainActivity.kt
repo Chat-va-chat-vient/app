@@ -22,7 +22,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        // Initialize the repository with the apiService from ApiClient
         catRepository = CatRepository(ApiClient.apiService)
 
         setContent {

@@ -23,12 +23,10 @@ import student.isen.chatva_chatvient.viewmodel.factories.MessagingViewModelFacto
 @Composable
 fun HomeScreen(navController: NavController, catRepository: CatRepository, catId: String) {
 
-    // Create the ViewModel using the factory
     val viewModel: HomeViewModel = viewModel(
         factory = HomeViewModelFactory(catRepository, catId)
     )
 
-    // Collect the profile data from the ViewModel
     val currentCat by viewModel.currentCat.collectAsState()
 
     Scaffold(

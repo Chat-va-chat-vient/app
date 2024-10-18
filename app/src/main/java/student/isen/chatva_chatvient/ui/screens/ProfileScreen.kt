@@ -15,12 +15,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
-import student.isen.chatva_chatvient.R
 import student.isen.chatva_chatvient.data.repositories.CatRepository
 import student.isen.chatva_chatvient.ui.composables.CustomAppBar
 import student.isen.chatva_chatvient.ui.composables.FloatingBottomNavBar
@@ -32,12 +30,10 @@ fun ProfileScreen(
     catRepository: CatRepository,
     catId: String
 ) {
-    // Create the ViewModel using the factory
     val viewModel: ProfileViewModel = viewModel(
         factory = ProfileViewModelFactory(catRepository, catId)
     )
 
-    // État pour le dialogue de confirmation
     val showDialog = remember { mutableStateOf(false) }
 
     val userName by viewModel.userName
@@ -45,7 +41,6 @@ fun ProfileScreen(
     val userCity by viewModel.userCity
     val userPhoto by viewModel.userPhoto
 
-    // Ajout du Scaffold pour afficher le dialog
     Scaffold(
         topBar = { CustomAppBar() },
         bottomBar = { FloatingBottomNavBar(navController) },
@@ -60,7 +55,6 @@ fun ProfileScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Top
                 ) {
-                    // Image de profil
                     Box(
                         modifier = Modifier
                             .width(125.dp)
@@ -79,7 +73,6 @@ fun ProfileScreen(
 
                     Spacer(modifier = Modifier.height(50.dp))
 
-                    // Modifier le nom d'utilisateur
                     OutlinedTextField(
                         value = userName,
                         onValueChange = { viewModel.onUserNameChange(it) },
@@ -89,7 +82,6 @@ fun ProfileScreen(
 
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    // Modifier la ville
                     OutlinedTextField(
                         value = userCity,
                         onValueChange = { viewModel.onUserCityChange(it) },
@@ -99,7 +91,6 @@ fun ProfileScreen(
 
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    // Modifier la description
                     OutlinedTextField(
                         value = userDescription,
                         onValueChange = { viewModel.onUserDescriptionChange(it) },
@@ -111,9 +102,8 @@ fun ProfileScreen(
 
                     Spacer(modifier = Modifier.height(24.dp))
 
-                    // Abonnement MeowMax
                     Button(
-                        onClick = { /* Naviguer vers la page MeowMax ou gérer l'abonnement */ },
+                        onClick = {},
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFE91E63)),
                         modifier = Modifier.fillMaxWidth()
                     ) {
@@ -122,7 +112,6 @@ fun ProfileScreen(
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Bouton pour enregistrer les modifications
                     Button(
                         onClick = {
                             viewModel.saveProfile {showDialog.value=true}
@@ -133,7 +122,6 @@ fun ProfileScreen(
                     }
                 }
 
-                // Affichage du dialogue de confirmation
                 if (showDialog.value) {
                     AlertDialog(
                         onDismissRequest = { showDialog.value = false },

@@ -31,39 +31,36 @@ import student.isen.chatva_chatvient.data.model.Cat
 fun CandidateProfile(
     cat: Cat,
     modifier: Modifier = Modifier,
-    width: Dp = 335.dp, // Largeur par défaut
+    width: Dp = 335.dp,
 ) {
-    val height = (width * 16 / 9) // Calcul de la hauteur pour un ratio d'aspect 9:16
+    val height = (width * 16 / 9)
 
-    // Box parent pour centrer le contenu
     Box(
         modifier = Modifier
-            .fillMaxSize() // Remplit tout l'écran
-            .background(Color.White) // Couleur de fond
-            .wrapContentSize() // Centre le contenu
+            .fillMaxSize()
+            .background(Color.White)
+            .wrapContentSize()
     ) {
-        // Box pour afficher l'image avec un ratio d'aspect
         Box(
             modifier = modifier
-                .size(width, height) // Définit la largeur et la hauteur
-                .clip(RoundedCornerShape(8.dp)) // Coins arrondis
-                .background(Color.LightGray) // Couleur de fond
+                .size(width, height)
+                .clip(RoundedCornerShape(8.dp))
+                .background(Color.LightGray)
         ) {
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
                     .data(cat.photo)
-                    .crossfade(true) // Animation de transition
+                    .crossfade(true)
                     .build(),
                 contentDescription = null,
-                contentScale = ContentScale.Crop, // Ajuste l'image
-                modifier = Modifier.fillMaxSize() // Remplit le Box
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxSize()
             )
         }
 
-        // Affichage de la localisation avec une icône
         Column(
             modifier = Modifier
-                .align(Alignment.BottomStart) // Aligne en bas à gauche
+                .align(Alignment.BottomStart)
                 .padding(16.dp)
                 .padding(top = 0.dp, bottom = 50.dp)
         ) {

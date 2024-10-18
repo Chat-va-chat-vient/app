@@ -35,20 +35,16 @@ class ProfileViewModel(private val catRepository: CatRepository,
                 userDescription.value = cat.description
                 userCity.value = cat.city
                 userPhoto.value = cat.photo
-
-                // Récupérer l'âge et le genre pour les conserver lors de la mise à jour
                 userAge = cat.age
                 userGender = cat.gender
 
             } catch (e: Exception) {
-                // Gestion d'erreur si l'API échoue
                 userName.value = "Erreur de chargement"
                 userDescription.value = "Impossible de charger la description."
             }
         }
     }
 
-    // Modifier les valeurs affichées dans l'UI
     fun onUserNameChange(newName: String) {
         userName.value = newName
     }
@@ -68,7 +64,6 @@ class ProfileViewModel(private val catRepository: CatRepository,
     fun saveProfile(onSuccess: () -> Unit) {
         viewModelScope.launch {
             try {
-                // Création d'un objet Cat avec les informations actuelles de l'utilisateur
                 val updatedCat = Cat(
                     id = catId,
                     name = userName.value,
@@ -81,10 +76,8 @@ class ProfileViewModel(private val catRepository: CatRepository,
 
                 catRepository.updateCat(catId, updatedCat)
 
-                // Message de succès
                 onSuccess()
             } catch (e: Exception) {
-                // Gestion des erreurs ici (par exemple, afficher un message d'erreur)
             }
         }
     }

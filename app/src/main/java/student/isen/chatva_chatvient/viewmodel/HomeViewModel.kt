@@ -20,16 +20,13 @@ class HomeViewModel(
     private var currentIndex: Int = 0
 
     init {
-        // Load initial candidate profiles
         loadCandidates()
     }
 
     private fun loadCandidates() {
         viewModelScope.launch {
-            // Fetch candidate list from the repository
             candidateList = candidateRepository.getNextProfiles(catId)
 
-            // Set the first candidate if available
             if (candidateList.isNotEmpty()) {
                 setCurrentCandidate()
             }
@@ -50,13 +47,10 @@ class HomeViewModel(
     }
 
     private fun nextCandidate() {
-        // Move to the next candidate
         if (currentIndex < candidateList.size - 1) {
             currentIndex++
             setCurrentCandidate()
         } else {
-            // Optionally handle the end of the candidate list
-            // For now, just loop back to the beginning
             currentIndex = 0
             setCurrentCandidate()
         }
