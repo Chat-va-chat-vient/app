@@ -20,6 +20,9 @@ class HomeViewModel(
     private var candidateList: List<Cat> = emptyList()
     private var currentIndex: Int = 0
 
+    private val _isEndOfList = MutableStateFlow(false)
+    val isEndOfList: StateFlow<Boolean> = _isEndOfList
+
     init {
         loadCandidates()
     }
@@ -31,6 +34,9 @@ class HomeViewModel(
             if (candidateList.isNotEmpty()) {
                 setCurrentCandidate()
             }
+            else {
+                _isEndOfList.value = true
+            }
         }
     }
 
@@ -40,13 +46,17 @@ class HomeViewModel(
     }
 
     fun onPassClick() {
-        likeOrDislike(liked = 0)
-        nextCandidate()
+        if (!_isEndOfList.value) {
+            likeOrDislike(liked = 0)
+            nextCandidate()
+        }
     }
 
     fun onSmashClick() {
-        likeOrDislike(liked = 1)
-        nextCandidate()
+        if (!_isEndOfList.value) {
+            likeOrDislike(liked = 1)
+            nextCandidate()
+        }
     }
 
     private fun nextCandidate() {
@@ -54,8 +64,7 @@ class HomeViewModel(
             currentIndex++
             setCurrentCandidate()
         } else {
-            currentIndex = 0
-            setCurrentCandidate()
+            _isEndOfList.value = true
         }
     }
 
