@@ -15,6 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import coil.compose.rememberAsyncImagePainter
 import student.isen.chatva_chatvient.R
 import student.isen.chatva_chatvient.data.repositories.CatRepository
 import student.isen.chatva_chatvient.ui.composables.CustomAppBar
@@ -37,6 +38,7 @@ fun ProfileScreen(
     val userName by viewModel.userName
     val userDescription by viewModel.userDescription
     val userCity by viewModel.userCity
+    val userPhoto by viewModel.userPhoto
 
     Scaffold(
         topBar = { CustomAppBar() },
@@ -60,16 +62,12 @@ fun ProfileScreen(
                             .clickable { /* Ajouter logique pour changer la photo de profil */ },
                         contentAlignment = Alignment.Center
                     ) {
+                        val painter = rememberAsyncImagePainter(userPhoto)
                         Image(
-                            painter = painterResource(id = R.drawable.ic_launcher_background),
+                            painter = painter,
                             contentDescription = "Profile Photo",
                             contentScale = ContentScale.Crop,
                             modifier = Modifier.fillMaxSize()
-                        )
-                        Text(
-                            text = "Change",
-                            color = Color.White,
-                            style = MaterialTheme.typography.bodyMedium
                         )
                     }
 

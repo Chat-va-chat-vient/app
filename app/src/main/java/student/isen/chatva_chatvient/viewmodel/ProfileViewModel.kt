@@ -18,6 +18,9 @@ class ProfileViewModel(private val catRepository: CatRepository,
     var userCity = mutableStateOf("")
         private set
 
+    var userPhoto = mutableStateOf("")
+        private set
+
     init {
         loadCatProfile(catId)
     }
@@ -27,7 +30,10 @@ class ProfileViewModel(private val catRepository: CatRepository,
             try {
                 val cat: Cat = catRepository.getCatById(catId)
                 userName.value = cat.name
-                userDescription.value = cat.description ?: ""
+                userDescription.value = cat.description
+                userCity.value = cat.city
+                val picture: String = cat.photo
+                userPhoto.value = picture
             } catch (e: Exception) {
                 // Gestion d'erreur si l'API échoue
                 userName.value = "Erreur de chargement"
@@ -47,6 +53,10 @@ class ProfileViewModel(private val catRepository: CatRepository,
 
     fun onUserCityChange(newCity: String) {
         userCity.value = newCity
+    }
+
+    fun onUserPhotoChange(newPhoto: String) {
+        userPhoto.value = newPhoto
     }
 
     fun saveProfile() {
