@@ -12,6 +12,12 @@ import student.isen.chatva_chatvient.data.model.MessageRequest
 import student.isen.chatva_chatvient.data.model.MessageResponse
 
 interface ApiService {
+
+    data class LikeRequest(
+        val userIdLiked: String,
+        val liked: Int
+    )
+
     // Fetch all cats
     @GET("users")
     suspend fun getCats(): List<Cat>
@@ -30,6 +36,11 @@ interface ApiService {
     @POST("messages/send")
     suspend fun sendMessage(@Body messageRequest: MessageRequest): Response<MessageResponse>
 
+    @POST("users/{userId}/like")
+    suspend fun likeCat(
+        @Path("userId") userId: String,
+        @Body likeRequest: LikeRequest
+    )
 
     @PUT("users/{id}")
     suspend fun updateCat(@Path("id") id: String, @Body cat: Cat)

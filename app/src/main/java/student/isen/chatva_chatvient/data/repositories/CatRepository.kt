@@ -29,4 +29,8 @@ class CatRepository(private val apiService: ApiService) {
         apiService.updateCat(catId, cat)
     }
 
+    suspend fun likeCat(userId: String, likeRequest: ApiService.LikeRequest) {
+        apiService.likeCat(userId, likeRequest)
+    }
+
 }

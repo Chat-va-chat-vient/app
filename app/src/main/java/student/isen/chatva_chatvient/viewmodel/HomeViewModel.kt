@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import student.isen.chatva_chatvient.data.api.ApiService
 import student.isen.chatva_chatvient.data.model.Cat
 import student.isen.chatva_chatvient.data.repositories.CatRepository
 
@@ -39,10 +40,12 @@ class HomeViewModel(
     }
 
     fun onPassClick() {
+        likeOrDislike(liked = 0)
         nextCandidate()
     }
 
     fun onSmashClick() {
+        likeOrDislike(liked = 1)
         nextCandidate()
     }
 
@@ -53,6 +56,19 @@ class HomeViewModel(
         } else {
             currentIndex = 0
             setCurrentCandidate()
+        }
+    }
+
+    private fun likeOrDislike(liked: Int) {
+        viewModelScope.launch {
+            val currentCatId = _currentCat.value.id
+            try {
+                candidateRepository.likeCat(
+                    userId = catId,
+                    ApiService.LikeRequest(userIdLiked = currentCatId, liked = liked)
+                )
+            } catch (_: Exception) {
+            }
         }
     }
 }
