@@ -53,21 +53,26 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import student.isen.chatva_chatvient.data.model.Cat
-import student.isen.chatva_chatvient.data.model.Message
+import student.isen.chatva_chatvient.data.model.MessageRequest
 import student.isen.chatva_chatvient.data.repositories.CatRepository
+import student.isen.chatva_chatvient.data.repositories.MessagingRepository
 import student.isen.chatva_chatvient.viewmodel.MessagingViewModel
 import student.isen.chatva_chatvient.viewmodel.factories.MessagingViewModelFactory
 
 
 @Composable
-fun MessagingScreen(catId: String, navController: NavController, catRepository: CatRepository) {
+fun MessagingScreen(selfId: String, catId: String, navController: NavController, catRepository: CatRepository, messagingRepository: MessagingRepository) {
 
+    // Create the ViewModel using the factory
     val viewModel: MessagingViewModel = viewModel(
-        factory = MessagingViewModelFactory(catRepository, catId)
+        factory = MessagingViewModelFactory(catRepository, messagingRepository, selfId,catId)
     )
 
+    val messages by viewModel.messages.collectAsState()
     val contact by viewModel.contactInfo.collectAsState()
+    val self by viewModel.selfUser.collectAsState()
 
+    // Display contact information
     contact?.let { cat ->
         Scaffold(
             topBar = { CustomTopAppBar(cat, navController) },
@@ -75,7 +80,7 @@ fun MessagingScreen(catId: String, navController: NavController, catRepository: 
                 Surface(
                     modifier = Modifier.padding(padding),
                 ) {
-                    MessagingPage(cat)
+                    self?.let { MessagingPage(it, cat, messages, viewModel) }
                 }
             }
         )
@@ -92,12 +97,13 @@ fun CustomTopAppBar(cat: Cat, navController: NavController) {
         title = {
             Row(modifier = Modifier,
                     verticalAlignment = Alignment.CenterVertically,) {
+                //Add the profile picture here
                 AsyncImage(
                     model = cat.photo,
                     contentDescription = null,
-                    contentScale = ContentScale.Crop,
+                    contentScale = ContentScale.Crop, // Ajuste l'image
                     modifier = Modifier.size(40.dp)
-                        .clip(CircleShape)
+                        .clip(CircleShape)                       // clip to the circle shape
                         .border(2.dp, Color.Gray, CircleShape)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
@@ -113,7 +119,7 @@ fun CustomTopAppBar(cat: Cat, navController: NavController) {
             }
         },
         actions = {
-            IconButton(onClick = {}) {
+            IconButton(onClick = { /* do something */ }) {
                 Icon(
                     imageVector = Icons.Filled.Menu,
                     contentDescription = "Localized description"
@@ -124,8 +130,7 @@ fun CustomTopAppBar(cat: Cat, navController: NavController) {
 }
 
 @Composable
-fun MessagingPage(cat: Cat) {
-    var messages by remember { mutableStateOf(listOf<Message>()) }
+fun MessagingPage(self: Cat, cat: Cat, messages: List<MessageRequest>, viewModel: MessagingViewModel) {
     var newMessage by remember { mutableStateOf(TextFieldValue()) }
 
     Column(modifier = Modifier.fillMaxSize()) {
@@ -135,17 +140,18 @@ fun MessagingPage(cat: Cat) {
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(messages) { message ->
-                MessageItem(message)
+                MessageItem(self, message)
             }
         }
 
+        // Bottom Bar with rounded text field
         BottomBar(
             textValue = newMessage,
             onTextChange = { newMessage = it },
             onSendClick = {
                 if (newMessage.text.isNotBlank()) {
-                    messages = messages + Message("You", newMessage.text)
-                    newMessage = TextFieldValue("")
+                    viewModel.sendMessage(MessageRequest(self.id, cat.id, newMessage.text))
+                    newMessage = TextFieldValue("") // Clear input field
                 }
             }
         )
@@ -164,6 +170,7 @@ fun BottomBar(
         tonalElevation = 8.dp,
         shadowElevation = 4.dp,
 
+        //rounded top corner
         shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
 
     ) {
@@ -173,6 +180,7 @@ fun BottomBar(
                 .padding(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
+            // Rounded TextField
             BasicTextField(
                 value = textValue,
                 onValueChange = onTextChange,
@@ -200,24 +208,26 @@ fun BottomBar(
                             )
                         )
                     }
-                    innerTextField()
+                    innerTextField()  // Render the input field
                 }
             )
 
             Spacer(modifier = Modifier.width(8.dp))
+
+            // Send Button
 
             IconButton(
                 onClick = onSendClick,
                 modifier = Modifier
                     .size(48.dp)
                     .background(MaterialTheme.colorScheme.primary , shape = CircleShape)
-            ) {
+            ) { //Add send icon
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.Send,
                     contentDescription = "Send",
                     tint = Color.White
                 )
-            }
+                              }
 
         }
     }
@@ -225,9 +235,10 @@ fun BottomBar(
 
 
 @Composable
-fun MessageItem(message: Message) {
-    val isUserMessage = message.sender == "You"
+fun MessageItem(self: Cat, messageRequest: MessageRequest) {
+    val isUserMessage = messageRequest.sender == self.id
 
+    // Bubble style
     val bubbleColor = if (isUserMessage) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary
     val alignment = if (isUserMessage) Alignment.CenterEnd else Alignment.CenterStart
 
@@ -238,7 +249,7 @@ fun MessageItem(message: Message) {
             .padding(8.dp)
     ) {
         Text(
-            text = message.content,
+            text = messageRequest.content,
             color = Color.White,
             fontSize = 16.sp,
             modifier = Modifier

@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import student.isen.chatva_chatvient.data.api.ApiClient
 import student.isen.chatva_chatvient.data.repositories.CatRepository
+import student.isen.chatva_chatvient.data.repositories.MessagingRepository
 import student.isen.chatva_chatvient.ui.screens.HomeScreen
 import student.isen.chatva_chatvient.ui.screens.ContactListScreen
 import student.isen.chatva_chatvient.ui.screens.MessagingScreen
@@ -23,6 +24,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         catRepository = CatRepository(ApiClient.apiService)
+        var messagingRepository = MessagingRepository()
+
 
         setContent {
             val navController = rememberNavController()
@@ -32,7 +35,7 @@ class MainActivity : ComponentActivity() {
                 composable("messagelist"){ ContactListScreen(navController, catRepository) }
                 composable("message/{catId}") { backStackEntry ->
                     val catId = backStackEntry.arguments?.getString("catId") ?: ""
-                    MessagingScreen(catId, navController, catRepository)
+                    MessagingScreen(userId, catId, navController, catRepository, messagingRepository)
                 }
             }
         }
