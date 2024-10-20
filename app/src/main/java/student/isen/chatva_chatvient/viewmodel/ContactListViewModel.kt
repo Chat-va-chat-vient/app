@@ -7,7 +7,10 @@ import kotlinx.coroutines.launch
 import student.isen.chatva_chatvient.data.model.Cat
 import student.isen.chatva_chatvient.data.repositories.CatRepository
 
-class ContactListViewModel(private val catRepository: CatRepository) : ViewModel() {
+class ContactListViewModel(
+    private val catRepository: CatRepository,
+    private val userId: String
+) : ViewModel() {
     private val _contacts = MutableStateFlow<List<Cat>>(emptyList())
     val contacts: StateFlow<List<Cat>> = _contacts
 
@@ -17,7 +20,7 @@ class ContactListViewModel(private val catRepository: CatRepository) : ViewModel
 
     private fun loadContacts() {
         viewModelScope.launch {
-            _contacts.value = catRepository.getNextProfiles("0881fc7c-3f06-4e1f-bf8c-21597eff596e")
+            _contacts.value = catRepository.getLiked(userId, 1)
         }
     }
 }

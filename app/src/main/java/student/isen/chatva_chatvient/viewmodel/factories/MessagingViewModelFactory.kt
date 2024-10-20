@@ -9,8 +9,8 @@ import student.isen.chatva_chatvient.viewmodel.MessagingViewModel
 class MessagingViewModelFactory(
     private val catRepository: CatRepository,
     private val messagingRepository: MessagingRepository,
-    private val catId: String,
-    private val selfId: String
+    private val selfId: String,
+    private val catId: String
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MessagingViewModel::class.java)) {

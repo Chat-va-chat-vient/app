@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        catRepository = CatRepository(ApiClient.apiService)
+        catRepository = CatRepository(ApiClient.userApiService)
         var messagingRepository = MessagingRepository()
 
 
@@ -32,10 +32,10 @@ class MainActivity : ComponentActivity() {
             NavHost(navController, startDestination = "home"){
                 composable("home") { HomeScreen(navController, catRepository, userId) }
                 composable("profile") { ProfileScreen(navController, catRepository, userId) }
-                composable("messagelist"){ ContactListScreen(navController, catRepository) }
+                composable("messagelist"){ ContactListScreen(navController, catRepository, userId) }
                 composable("message/{catId}") { backStackEntry ->
                     val catId = backStackEntry.arguments?.getString("catId") ?: ""
-                    MessagingScreen(userId, catId, navController, catRepository, messagingRepository)
+                    MessagingScreen(userId, catId , navController, catRepository, messagingRepository)
                 }
             }
         }

@@ -5,8 +5,9 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import student.isen.chatva_chatvient.data.api.ApiService
+import student.isen.chatva_chatvient.data.api.UserApiService
 import student.isen.chatva_chatvient.data.model.Cat
+import student.isen.chatva_chatvient.data.model.LikeRequest
 import student.isen.chatva_chatvient.data.repositories.CatRepository
 
 class HomeViewModel(
@@ -74,7 +75,7 @@ class HomeViewModel(
             try {
                 candidateRepository.likeCat(
                     userId = catId,
-                    ApiService.LikeRequest(userIdLiked = currentCatId, liked = liked)
+                    LikeRequest(userIdLiked = currentCatId, liked = liked)
                 )
             } catch (_: Exception) {
             }

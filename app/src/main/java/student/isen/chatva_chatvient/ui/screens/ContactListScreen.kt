@@ -38,10 +38,14 @@ import student.isen.chatva_chatvient.viewmodel.factories.ContactListViewModelFac
 
 
 @Composable
-fun ContactListScreen(navController: NavController, catRepository: CatRepository) {
+fun ContactListScreen(
+    navController: NavController,
+    catRepository: CatRepository,
+    userId: String
+) {
 
     val viewModel: ContactListViewModel = viewModel(
-        factory = ContactListViewModelFactory(catRepository)
+        factory = ContactListViewModelFactory(catRepository,userId)
     )
 
     val contacts by viewModel.contacts.collectAsState()
@@ -71,6 +75,7 @@ fun ContactItem(contact: Cat, navController: NavController) {
             .padding(vertical = 8.dp)
             .clickable(onClick = {
 
+                println(contact.id)
                 navController.navigate("message/${contact.id}")}
             ),
         verticalAlignment = Alignment.CenterVertically

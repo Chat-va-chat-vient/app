@@ -6,11 +6,12 @@ import student.isen.chatva_chatvient.data.repositories.CatRepository
 import student.isen.chatva_chatvient.viewmodel.ContactListViewModel
 
 class ContactListViewModelFactory(
-    private val catRepository: CatRepository
+    private val catRepository: CatRepository,
+    private val userId: String
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ContactListViewModel::class.java)) {
-            return ContactListViewModel(catRepository) as T
+            return ContactListViewModel(catRepository, userId) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
