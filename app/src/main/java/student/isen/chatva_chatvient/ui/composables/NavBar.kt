@@ -9,6 +9,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -33,15 +35,19 @@ fun FloatingBottomNavBar(navController: NavController) {
     val bottomNavItems = listOf("Profile", "Home", "Messages")
     val selectedItem = remember { mutableStateOf("Home") }
 
-    Box(
+    Surface(
         modifier = Modifier
             .fillMaxWidth()
             .padding(bottom = bottomPadding + 16.dp, start = 16.dp, end = 16.dp)
             .height(60.dp)
-            .clip(RoundedCornerShape(32.dp))
+            .clip(RoundedCornerShape(32.dp)),
+        color = MaterialTheme.colorScheme.surface,
+        tonalElevation = 8.dp,
+        shadowElevation = 4.dp,
     ) {
         BottomNavigation(
             backgroundColor = Color.Transparent,
+
             elevation = 0.dp,
             modifier = Modifier.fillMaxSize()
         ) {

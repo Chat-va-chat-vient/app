@@ -75,7 +75,6 @@ fun ContactItem(contact: Cat, navController: NavController) {
             .padding(vertical = 8.dp)
             .clickable(onClick = {
 
-                println(contact.id)
                 navController.navigate("message/${contact.id}")}
             ),
         verticalAlignment = Alignment.CenterVertically
@@ -91,7 +90,6 @@ fun ContactItem(contact: Cat, navController: NavController) {
         Spacer(modifier = Modifier.width(16.dp))
         Column {
             BasicText(text = contact.name, style = MaterialTheme.typography.bodyLarge)
-            BasicText(text = contact.id, style = MaterialTheme.typography.bodySmall, overflow = TextOverflow.Ellipsis, maxLines = 1)
         }
     }
 }
