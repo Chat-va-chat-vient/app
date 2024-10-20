@@ -1,6 +1,7 @@
 package student.isen.chatva_chatvient.ui.screens
 
 import CandidateProfile
+import android.util.Log
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -39,10 +40,12 @@ fun HomeScreen(navController: NavController, catRepository: CatRepository, catId
                 CandidateProfile(
                     cat = currentCat
                 )
-                PassSmashButtons(
-                    onSmashClick = {viewModel.onSmashClick()},
-                    onPassClick = {viewModel.onPassClick()}
-                )
+                if(!(currentCat.id.isNullOrEmpty())){
+                    PassSmashButtons(
+                        onSmashClick = {viewModel.onSmashClick()},
+                        onPassClick = {viewModel.onPassClick()}
+                    )
+                }
             }
 
         }

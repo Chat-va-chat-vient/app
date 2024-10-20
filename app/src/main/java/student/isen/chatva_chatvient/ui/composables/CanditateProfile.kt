@@ -33,74 +33,92 @@ fun CandidateProfile(
     modifier: Modifier = Modifier,
     width: Dp = 335.dp,
 ) {
-    val height = (width * 16 / 9)
-
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White)
-            .wrapContentSize()
-    ) {
+    // Vérification si le champ "id" est null ou vide
+    if (cat.id.isNullOrEmpty()) {
         Box(
-            modifier = modifier
-                .size(width, height)
-                .clip(RoundedCornerShape(8.dp))
-                .background(Color.LightGray)
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.White)
+                .wrapContentSize(Alignment.Center)
         ) {
-            AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(cat.photo)
-                    .crossfade(true)
-                    .build(),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxSize()
+            Text(
+                text = "Y'a plus un chat...\n(ㅠ﹏ㅠ)",
+                color = Color.Black,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center
             )
         }
+    } else {
+        val height = (width * 16 / 9)
 
-        Column(
+        Box(
             modifier = Modifier
-                .align(Alignment.BottomStart)
-                .padding(16.dp)
-                .padding(top = 0.dp, bottom = 50.dp)
+                .fillMaxSize()
+                .background(Color.White)
+                .wrapContentSize()
         ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically
+            Box(
+                modifier = modifier
+                    .size(width, height)
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(Color.LightGray)
             ) {
-                Text(
-                    text = cat.name,
-                    color = Color.White,
-                    textAlign = TextAlign.Start,
-                    fontFamily = FontFamily(Font(R.font.inter)),
-                    fontWeight = FontWeight.ExtraBold,
-                    fontSize = 40.sp,
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(
-                    text = cat.age.toString(),
-                    color = Color.White,
-                    textAlign = TextAlign.Start,
-                    fontFamily = FontFamily(Font(R.font.inter)),
-                    fontWeight = FontWeight.Normal,
-                    fontSize = 35.sp,
+                AsyncImage(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(cat.photo)
+                        .crossfade(true)
+                        .build(),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize()
                 )
             }
-            Row(
-                verticalAlignment = Alignment.CenterVertically
+
+            Column(
+                modifier = Modifier
+                    .align(Alignment.BottomStart)
+                    .padding(16.dp)
+                    .padding(top = 0.dp, bottom = 50.dp)
             ) {
-                Icon(
-                    imageVector = Icons.Filled.Home,
-                    contentDescription = null,
-                    tint = Color.White,
-                    modifier = Modifier.size(26.dp)
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(
-                    text = "Purrs at " + cat.city,
-                    color = Color.White,
-                    textAlign = TextAlign.Start,
-                    fontSize = 20.sp,
-                )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = cat.name,
+                        color = Color.White,
+                        textAlign = TextAlign.Start,
+                        fontFamily = FontFamily(Font(R.font.inter)),
+                        fontWeight = FontWeight.ExtraBold,
+                        fontSize = 40.sp,
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = cat.age.toString(),
+                        color = Color.White,
+                        textAlign = TextAlign.Start,
+                        fontFamily = FontFamily(Font(R.font.inter)),
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 35.sp,
+                    )
+                }
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.Home,
+                        contentDescription = null,
+                        tint = Color.White,
+                        modifier = Modifier.size(26.dp)
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = "Purrs at " + cat.city,
+                        color = Color.White,
+                        textAlign = TextAlign.Start,
+                        fontSize = 20.sp,
+                    )
+                }
             }
         }
     }
