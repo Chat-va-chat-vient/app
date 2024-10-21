@@ -28,6 +28,37 @@ Pourquoi **Chat-va Chat-vient** ? Parce que votre chat n'a que neuf vies, et qu'
 
 Téléchargez maintenant et laissez l'aventure commencer... L’amour est à portée de pattes ! 😺
 
+## Lancer le projet
+
+### Prérequis
+
+Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur votre machine :
+
+- **Android Studio** (dernière version)
+- **Java JDK** (version 8 minimum)
+
+### Étapes pour lancer le projet
+
+1. **Lancer le back-end**
+   - Cloner le dépôt Git du <a href="https://github.com/Chat-va-chat-vient/API">back-end</a> si ce n'est pas déjà fait.
+   - Naviguer vers le dossier du back-end dans votre terminal.
+   - Suivez les instructions spécifiques du dépôt pour démarrer le serveur back-end. Assurez-vous qu'il est en cours d'exécution avant de continuer.
+
+2. **Ouvrir le projet dans Android Studio**
+   - Lancez **Android Studio**.
+   - Cliquez sur **Open an existing project** et sélectionnez le dossier de votre projet Android.
+
+3. **Configurer l'émulateur ou connecter un téléphone physique**
+   - Si vous utilisez un émulateur :
+     - Lancez un émulateur Android à partir d'Android Studio via **AVD Manager**.
+   - Si vous utilisez un téléphone physique :
+     - Assurez-vous que le débogage USB est activé sur votre appareil.
+
+4. **Lancer le projet**
+   - Cliquez sur le bouton **Run** (l'icône en forme de triangle vert) dans Android Studio.
+   - Sélectionnez votre émulateur ou votre appareil physique lorsque vous y êtes invité.
+   - L'application se construira et se lancera sur l'appareil sélectionné.
+
 ## Credits
 
 <ul>
