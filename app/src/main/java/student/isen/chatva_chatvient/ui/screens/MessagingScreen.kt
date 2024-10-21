@@ -236,7 +236,7 @@ fun BottomBar(
 
 @Composable
 fun MessageItem(self: Cat, messageRequest: MessageRequest) {
-    val isUserMessage = messageRequest.sender == self.id
+    val isUserMessage = messageRequest.userId == self.id
 
     // Bubble style
     val bubbleColor = if (isUserMessage) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary
@@ -249,7 +249,7 @@ fun MessageItem(self: Cat, messageRequest: MessageRequest) {
             .padding(8.dp)
     ) {
         Text(
-            text = messageRequest.content,
+            text = messageRequest.message,
             color = Color.White,
             fontSize = 16.sp,
             modifier = Modifier

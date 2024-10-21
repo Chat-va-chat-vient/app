@@ -9,6 +9,6 @@ import student.isen.chatva_chatvient.data.model.MessageResponse
 interface MessagingApiService {
 
     @POST("messages/send")
-    suspend fun sendMessage(@Body messageRequest: MessageRequest): Response<MessageResponse>
+    suspend fun sendMessage(@Body messageRequest: MessageRequest): MessageResponse
 
 }

@@ -61,10 +61,14 @@ class MessagingViewModel(
     fun sendMessage(message: MessageRequest) {
         viewModelScope.launch {
             val result = messagingRepository.sendMessage(message)
-            val reply = MessageRequest(message.recipient, message.sender, "Hello")
+            val reply = MessageRequest(
+                userId = message.recipientId,
+                recipientId = message.userId,
+                message = result.autoReply
+            )
 
-            _messages.value = _messages.value + message
-            _messages.value = _messages.value + reply
+            _messages.value += message
+            _messages.value += reply
         }
     }
 }

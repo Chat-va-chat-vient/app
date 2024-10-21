@@ -7,14 +7,8 @@ import student.isen.chatva_chatvient.data.model.MessageResponse
 class MessagingRepository {
     private val apiService = ApiClient.messagingApiService
 
-    suspend fun sendMessage(messageRequest: MessageRequest): MessageResponse? {
-        var response = apiService.sendMessage(messageRequest)
-
-        if (response.isSuccessful){
-            return response.body()
-
-        }
-        return null
+    suspend fun sendMessage(messageRequest: MessageRequest): MessageResponse {
+        return apiService.sendMessage(messageRequest)
     }
 
 }
