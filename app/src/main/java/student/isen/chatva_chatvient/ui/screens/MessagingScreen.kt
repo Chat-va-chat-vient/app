@@ -118,14 +118,6 @@ fun CustomTopAppBar(cat: Cat, navController: NavController) {
                 )
             }
         },
-        actions = {
-            IconButton(onClick = { /* do something */ }) {
-                Icon(
-                    imageVector = Icons.Filled.Menu,
-                    contentDescription = "Localized description"
-                )
-            }
-        },
     )
 }
 
