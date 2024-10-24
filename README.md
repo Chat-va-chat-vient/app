@@ -4,16 +4,17 @@
   <img src="https://i.imgur.com/dYB7Sln.png" alt="logo" width="200">
   <br>
   Chat-va Chat-vient
-  <br>
-  L'appli de rencontre pour les félins qui envoient du pâté !
-</h1>
+  <br></h1>
+
+<center><p style="font-size: 25px;">L'appli de rencontre pour les félins qui envoient du pâté ! </p></center>
+
 
 <p align="center">
   <img src="https://i.imgur.com/WKwqGVL.gif" alt="logo" width="200">
 </p>
 
 
-Bienvenue sur **Chat-va Chat-vient**, l'application de rencontre ultime pour nos amis à moustaches ! 🐾 Que votre chaton soit à la recherche d'une douce sieste partagée, d'une séance de ronronthérapie à deux, ou d'une amitié sincère autour d'une gamelle de croquettes, **Chat-va Chat-vient** est là pour lui trouver le partenaire parfait. 😻
+Bienvenue sur **Chat-va Chat-vient**, l'application de rencontre pour nos amis à moustaches ! 🐾 Que votre chaton soit à la recherche d'une douce sieste partagée, d'une séance de ronronthérapie à deux, ou d'une amitié autour d'une gamelle de croquettes, **Chat-va Chat-vient** est là pour lui trouver le partenaire parfait. 😻
 
 ## Fonctionnalités :
 <ul>
@@ -24,7 +25,8 @@ Bienvenue sur **Chat-va Chat-vient**, l'application de rencontre ultime pour nos
   <li> 💕 Pattes à pattes : Le matching est basé sur la compatibilité des griffes ! </li>
 </ul>
 
-Pourquoi **Chat-va Chat-vient** ? Parce que votre chat n'a que neuf vies, et qu'elles sont bien plus belles à deux (ou à plus, on ne juge pas) ! Faites ronronner l'amour et laissez votre félin se trouver un pote de sieste ou un coup de cœur pour partager des moments câlins.
+### Pourquoi **Chat-va Chat-vient** ? 
+Parce que votre chat n'a que neuf vies, et qu'elles sont bien plus belles à deux (ou à plus, on ne juge pas) ! Faites ronronner l'amour et laissez votre félin se trouver un pote de sieste ou un coup de cœur pour partager des moments câlins.
 
 Téléchargez maintenant et laissez l'aventure commencer... L’amour est à portée de pattes ! 😺
 
